@@ -48,6 +48,7 @@
                         <form th:action="@{/listDetail}" method="post" class="action-form">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <input type="hidden" th:name="userId" th:value="${appoint.userId}"/>
+                            <input type="hidden" th:name="listId" th:value="${appoint.listId}"/>
                             <button type="submit" class="detail-button">詳細</button>
                         </form>
  
