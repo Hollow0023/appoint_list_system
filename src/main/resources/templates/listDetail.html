@@ -36,17 +36,17 @@
 </head>
 <body>
 
-<header>
-    <img src="logo.png" alt="ロゴ" class="logo">
-    <nav>
-        <a href="https://www.p-world.co.jp/machine/database/10121" th:href="@{/}">TOP</a>
-        <a href="https://www.p-world.co.jp/machine/database/10098" th:href="@{/mypage}">マイページ</a>
-    </nav>
-</header>
+<!--<header>-->
+<!--    <img src="logo.png" alt="ロゴ" class="logo">-->
+<!--    <nav>-->
+<!--        <a href="https://www.p-world.co.jp/machine/database/10121" th:href="@{/}">TOP</a>-->
+<!--        <a href="https://www.p-world.co.jp/machine/database/10098" th:href="@{/mypage}">マイページ</a>-->
+<!--    </nav>-->
+<!--</header>-->
 
 <div class="container">
     <form id="main-form" th:action="@{/submit}" method="post">
-		<div><input type="text" th:name="listId" th:value="${listId}"></div>
+		<div>ID <input type="text" th:name="listId" th:value="${listId}"></div>
 		
         <div class="input-group">
             <div class="edit">
@@ -55,10 +55,21 @@
             <label for="company-name">企業名</label>
             <input type="text" id="company-name" name="storeName" class="input-box" required readonly th:value="${storeName}"> <!-- 修正 -->
         </div>
-        
+
         <div class="input-group">
             <label for="phone-number">電話番号</label>
-            <input type="text" id="phone-number" name="phone" class="input-box" required readonly th:value="${phone}"> <!-- 修正 -->
+            <input type="text" id="phone-number" name="phone" class="input-box" required readonly th:value="${phone}"> 
+        </div>
+                
+        <div class="input-group">
+            <label for="status">ステータス</label>
+            <select id="status" name="statusDetail" class="input-box" required>
+		        <option value="" disabled>ステータスを選択</option>
+		        <option th:each="status : ${status}" 
+		                th:value="${status.statusId}" 
+		                th:text="${status.status}" 
+		                th:selected="${status.status} == ${statusSelected}"></option>
+		    </select>
         </div>
         
         <div class="input-group">
@@ -81,24 +92,13 @@
             <input type="text" id="subject" name="subject" class="input-box" required readonly th:value="${address}"> <!-- 修正 -->
         </div>
         
-        
-        <div class="input-group">
-            <label for="status">ステータス</label>
-            <select id="status" name="statusDetail" class="input-box" required>
-		        <option value="" disabled>ステータスを選択</option>
-		        <option th:each="status : ${status}" 
-		                th:value="${status.statusId}" 
-		                th:text="${status.status}" 
-		                th:selected="${status.status} == ${statusSelected}"></option>
-		    </select>
-        </div>
         <div class="input-group">
             <label for="post-remarks">アポ後 備考</label>
             <textarea id="post-remarks" name="postRemarks" class="input-box large-input" th:text="${PostRemarks}"></textarea> <!-- 修正 -->
         </div>
 
         <div class="button-container">
-            <button type="submit" class="button complete">完了</button>
+            <button type="submit" class="button complete">保存</button>
 <!--            リスト一覧ページに戻るボタン-->
             
         </div>
@@ -107,16 +107,11 @@
 		<form th:action="@{/appoints}" method="get">
         	<button type="submit" class="button back">戻る</button>
         </form>
-<!--            保存ボタン-->
-        <form th:action="@{/submitSave}" method="post">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-			<input type="hidden" th:name="listId" th:value="${listId}"></input>
-			<button type="submit" class="button next">保存</button>
-		</form>
+
 <!--    次のページボタン-->
 	    <form th:action="@{/nextpage}" method="post">
-				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-				<input type="hidden" th:name="listId" th:value="${listId}"></input>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<input type="hidden" th:name="listId" th:value="${listId}"></input>
 			<button type="submit" class="button next">次のリストを表示</button>
 		</form>
 	</div>

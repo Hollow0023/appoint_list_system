@@ -50,9 +50,8 @@ public class ListDetailController {
         model.addAttribute("status", statusList);
        
         AppointList appointList = appointListRepository.findByListId(listId); // 全てのデータを取得
-        Status status = statusRepository.getById(appointList.getStatusId());
+        Status status = statusRepository.findByStatusId(appointList.getStatusId());
         model.addAttribute("statusSelected", status.getStatus());
-        System.out.println("検索された値は"+appointList);
     	
         // 受け取ったデータをモデルに追加
         model = addModel(appointList,model);
@@ -67,9 +66,10 @@ public class ListDetailController {
             Model model) {
         
     	List<Status> statusList = statusRepository.findAll();
-        model.addAttribute("statusList", statusList);
+        model.addAttribute("status", statusList);
         AppointList appointList = appointListRepository.findByListId(listId); // 全てのデータを取得
-        System.out.println("検索された値は"+appointList);
+        Status status = statusRepository.findByStatusId(appointList.getStatusId());
+        model.addAttribute("statusSelected", status.getStatus());
     	
         // 受け取ったデータをモデルに追加
         model = addModel(appointList,model);
@@ -139,38 +139,4 @@ public class ListDetailController {
         return new ModelAndView("redirect:/appoints");  // 成功ページにリダイレクト
     }
     
-    @PostMapping("/submitSave")//保存
-    public ModelAndView submitSave(
-    		@RequestParam("listId") Integer listId,
-    		@RequestParam(value="userId", required=false, defaultValue="1") String userId,
-    		@RequestParam(value="storeName", required=false, defaultValue="test") String storeName,
-    		@RequestParam(value="phone", required=false, defaultValue="111") String phone,
-    		@RequestParam(value="address", required=false, defaultValue="test") String address,
-    		@RequestParam(value="subject", required=false, defaultValue="test") String subject,
-    		@RequestParam(value="industry", required=false, defaultValue="test") String industry,
-    		@RequestParam(value="remarks", required=false, defaultValue="test") String remarks,
-    		@RequestParam(value="statusDetail", required=false, defaultValue="test") Integer statusDetail,
-    		@RequestParam(value="postRemarks", required=false, defaultValue="test") String postRemarks) {
-
-        // listIdを元に該当のレコードを取得
-        AppointList appointment = appointListRepository.findById(listId)
-                                       .orElseThrow(() -> new IllegalArgumentException("Invalid listId:" + listId));
-
-        // データを更新
-        appointment.setStoreName(storeName);
-        appointment.setPhone(phone);
-        appointment.setAddress(address);
-        appointment.setSubject(subject);
-        appointment.setIndustry(industry);
-        appointment.setRemarks(remarks);
-        appointment.setStatusId(statusDetail);  // 仮に statusId を 1 に固定
-        appointment.setPostRemarks(postRemarks);
-
-        // データベースに保存
-        appointListRepository.save(appointment);
-
-        ModelAndView mav = new ModelAndView("redirect:/showDetail");
-        mav.addObject("listId", listId);
-        return mav;
-    }
 }
