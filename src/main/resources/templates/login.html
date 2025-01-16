@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/loginStyle.css}">
+</head>
+
+<body>
+	<div class="login-container">
+        <div class="page_title">ログイン</div>
+	    <div th:if="${param.error}">
+	        <p>ユーザー名かパスワードが間違っています</p>
+	    </div>
+	    <div th:if="${param.logout}">
+	        <p>ログアウトしました。</p>
+	    </div>
+        <form th:action="@{/login}" method="post">
+	        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+	        <div class="input-group">
+	            <label>ユーザー名: </label>
+	            <input type="text" name="username" required/>
+	        </div>
+	        <div class="input-group">
+	            <label>パスワード: </label>
+	            <input type="password" name="password" required/>
+	        </div>
+	        <button type="submit" class="login-button">ログイン</button>
+    	</form>
+    	<form th:action="@{/register}" method="get">
+			<button type="submit" class="register-button">新規登録</button>
+		</form>
+    </div>
+</body>
+</html>
+

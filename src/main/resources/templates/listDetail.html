@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>リスト詳細表示</title>
+    <link rel="stylesheet" th:href="@{/css/listDetail.css}">
+    <script>
+        function enableEdit() {
+            // input要素のreadonlyを解除
+            document.getElementById("company-name").removeAttribute("readonly");
+            document.getElementById("phone-number").removeAttribute("readonly");
+            document.getElementById("remarks").removeAttribute("readonly");
+            document.getElementById("address").removeAttribute("readonly");
+
+            // 編集ボタンを完了ボタンに変更
+            var editButton = document.getElementById("edit-button");
+            editButton.innerText = "完了";
+            editButton.setAttribute("onclick", "finalizeEdit()");
+        }
+
+        function finalizeEdit() {
+            // input要素にreadonlyを再追加
+            document.getElementById("company-name").setAttribute("readonly", true);
+            document.getElementById("phone-number").setAttribute("readonly", true);
+            document.getElementById("remarks").setAttribute("readonly", true);
+            document.getElementById("address").setAttribute("readonly", true);
+
+
+            // 編集ボタンを「編集」に戻す
+            var editButton = document.getElementById("edit-button");
+            editButton.innerText = "編集";
+            editButton.setAttribute("onclick", "enableEdit()");
+        }
+
+    </script>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="ロゴ" class="logo">
+    <nav>
+        <a href="https://www.p-world.co.jp/machine/database/10121" th:href="@{/}">TOP</a>
+        <a href="https://www.p-world.co.jp/machine/database/10098" th:href="@{/mypage}">マイページ</a>
+    </nav>
+</header>
+
+<div class="container">
+    <form id="main-form" th:action="@{/submit}" method="post">
+		<div><input type="text" th:name="listId" th:value="${listId}"></div>
+		
+        <div class="input-group">
+            <div class="edit">
+                <button type="button" id="edit-button" class="edit-button" onclick="enableEdit()">編集</button>
+            </div>
+            <label for="company-name">企業名</label>
+            <input type="text" id="company-name" name="storeName" class="input-box" required readonly th:value="${storeName}"> <!-- 修正 -->
+        </div>
+        
+        <div class="input-group">
+            <label for="phone-number">電話番号</label>
+            <input type="text" id="phone-number" name="phone" class="input-box" required readonly th:value="${phone}"> <!-- 修正 -->
+        </div>
+        
+        <div class="input-group">
+            <label for="remarks">備考</label>
+            <textarea id="remarks" name="remarks" class="input-box large-input" required readonly th:text="${remarks}"></textarea> <!-- 修正 -->
+        </div>
+        
+        <div class="input-group">
+            <label for="address">住所</label>
+            <input type="text" id="address" name="address" class="input-box" required readonly th:value="${address}"> <!-- 修正 -->
+        </div>
+        
+        <div class="input-group">
+            <label for="address">業種</label>
+            <input type="text" id="industry" name="industry" class="input-box" required readonly th:value="${address}"> <!-- 修正 -->
+        </div>
+        
+        <div class="input-group">
+            <label for="address">件名</label>
+            <input type="text" id="subject" name="subject" class="input-box" required readonly th:value="${address}"> <!-- 修正 -->
+        </div>
+        
+        
+        <div class="input-group">
+            <label for="status">ステータス</label>
+            <select id="status" name="statusDetail" class="input-box" required>
+		        <option value="" disabled>ステータスを選択</option>
+		        <option th:each="status : ${status}" 
+		                th:value="${status.statusId}" 
+		                th:text="${status.status}" 
+		                th:selected="${status.status} == ${statusSelected}"></option>
+		    </select>
+        </div>
+        <div class="input-group">
+            <label for="post-remarks">アポ後 備考</label>
+            <textarea id="post-remarks" name="postRemarks" class="input-box large-input" th:text="${PostRemarks}"></textarea> <!-- 修正 -->
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="button complete">完了</button>
+<!--            リスト一覧ページに戻るボタン-->
+            
+        </div>
+	</form>
+	<div class="button-container">
+		<form th:action="@{/appoints}" method="get">
+        	<button type="submit" class="button back">戻る</button>
+        </form>
+<!--            保存ボタン-->
+        <form th:action="@{/submitSave}" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<input type="hidden" th:name="listId" th:value="${listId}"></input>
+			<button type="submit" class="button next">保存</button>
+		</form>
+<!--    次のページボタン-->
+	    <form th:action="@{/nextpage}" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<input type="hidden" th:name="listId" th:value="${listId}"></input>
+			<button type="submit" class="button next">次のリストを表示</button>
+		</form>
+	</div>
+	
+	
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+@charset "UTF-8";/* 全体のスタイル */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+ 
+/* ログアウトコンテナ */
+.logout-container {
+    width: 300px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+ 
+/* アバター画像 */
+.avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+ 
+/* ユーザー名 */
+.username {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+ 
+/* ログアウトメッセージ */
+.logout-message {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+ 
+/* ログアウトボタンとキャンセルボタン */
+button, .logout-button {
+    width: calc(100% - 20px); /* コンテナ内で同じ幅 */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0 auto 10px auto; /* ボタンを中央に */
+    display: block;
+    max-width: 280px; /* 最大幅を指定 */
+}
+ 
+button, .cancel-button {
+    width: calc(95% - 25px); /* コンテナ内で同じ幅 */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0 auto 10px auto; /* ボタンを中央に */
+    display: block;
+    max-width: 280px; /* 最大幅を指定 */
+}
+ 
+.logout-button {
+    color: #fff;
+    background-color: #666666;
+    border: none;
+}
+ 
+.logout-button:hover {
+    background-color: #333333;
+}
+ 
+.cancel-button {
+    color: #666666;
+    background-color: #e0e0e0;
+    border: none;
+    text-align: center;
+}
+ 
+.cancel-button:hover {
+    background-color: #bdbdbd;
+}

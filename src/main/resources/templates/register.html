@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<div>
+	<div class="register-container">
+		<div class="page_title">新規登録</div>
+	    <form th:action="@{/register}" method="post">
+			<div class="input-group">
+		        <label for="username">ユーザー名:</label><br>
+		        <input type="text" id="username" name="username" required><br>
+			</div>
+	        <div class="input-group">
+		        <label for="password">パスワード:</label><br>
+		        <input type="password" id="password" name="password" required><br>
+	        </div>
+<!--	        パスワードの確認を実装(2回入力)-->
+	        <input type="submit" class="register-button" value="登録">
+	    </form>
+	    <form th:action="@{/login}" method="get">
+			<input type="submit" class="back-button" value="戻る">
+	    </form>
+	</div>
+</body>
+</html>
+

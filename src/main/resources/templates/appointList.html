@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Appoint List</title>
+    <link rel="stylesheet" th:href="@{/css/appointList.css}">
+</head>
+<body>
+	<script>
+    // 削除確認アラートを表示
+	    function confirmDelete() {
+	        return confirm("本当に削除しますか？");
+	    }
+	</script>
+	
+    <h1>Appointment List</h1>
+    
+    <form th:action="@{/listAdd}" method="get">
+		<button  type="submit">追加</button>
+	</form>
+
+	<table border="1">
+	    <thead>
+	        <tr class="data-table">
+	            <th>ID</th>
+	            <th>List ID</th>
+	            <th>Store Name</th>
+	            <th>Phone Number</th>
+	            <th>Address</th>
+	            <th>Subject</th>
+	            <th>Industry</th>
+	            <th>Remarks</th>
+	            <th>Status ID</th>
+	            <th>After Remarks</th>
+	            <th>Action</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="appoint : ${appointList}">
+	            <td th:text="${appoint.userId}">ID</td>
+	            <td th:text="${appoint.listId}">List ID</td>
+	            <td th:text="${appoint.storeName}">Store Name</td>
+	            <td th:text="${appoint.phone}">Phone Number</td>
+	            <td th:text="${appoint.address}">Address</td>
+	            <td th:text="${appoint.subject}">Subject</td>
+	            <td th:text="${appoint.industry}">Industry</td>
+	            <td th:text="${appoint.remarks}">Remarks</td>
+	            <td th:text="${appoint.statusDetail}">Status ID</td>
+	            <td th:text="${appoint.PostRemarks}">After Remarks</td>
+	            <td>
+	                <!-- 詳細ボタン -->
+	                <form th:action="@{/listDetail}" method="post" style="display: inline;">
+	                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+	                    <input type="hidden" th:name="userId" th:value="${appoint.userId}"/>
+	                    <input type="hidden" th:name="listId" th:value="${appoint.listId}"/>
+	                    <input type="hidden" th:name="storeName" th:value="${appoint.storeName}"/>
+	                    <input type="hidden" th:name="phone" th:value="${appoint.phone}"/>
+	                    <input type="hidden" th:name="address" th:value="${appoint.address}"/>
+	                    <input type="hidden" th:name="subject" th:value="${appoint.subject}"/>
+	                    <input type="hidden" th:name="industry" th:value="${appoint.industry}"/>
+	                    <input type="hidden" th:name="remarks" th:value="${appoint.remarks}"/>
+	                    <input type="hidden" th:name="statusDetail" th:value="${appoint.statusDetail}"/>
+	                    <input type="hidden" th:name="PostRemarks" th:value="${appoint.PostRemarks}"/>
+	                    <button type="submit">詳細</button>
+	                </form>
+	                
+	                <!-- 削除ボタン -->
+					<form th:action="@{/listDelete}" method="post" style="display: inline;" onsubmit="return confirmDelete();">
+	                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+	                    <input type="hidden" th:name="listId" th:value="${appoint.listId}"/>
+	                    <button type="submit">削除</button>
+	                </form>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+
+    
+    <form th:action="@{/logoutCheck}" method="get">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit">Logout</button>
+    </form>
+
+    <p th:text="${status}"></p>
+</body>
+</html>
