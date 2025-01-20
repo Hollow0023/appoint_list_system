@@ -7,7 +7,7 @@ public class LogoutController {
 
     @GetMapping("/checkLogout") // "/checkLogout"というURLに対するGETリクエストを処理します
     public String logout() {
-        return "logoutComplete";  // logout.htmlを表示します
+        return "login";  // login.htmlを表示します
     }
     
     @GetMapping("/logoutCheck")

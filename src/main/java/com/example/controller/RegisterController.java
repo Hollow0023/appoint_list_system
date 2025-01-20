@@ -3,6 +3,7 @@ package com.example.controller; // このファイルが属するパッケージ
 // 必要なクラスをインポートします
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,13 +29,15 @@ public class RegisterController {
     }
 
     @PostMapping("/register") // "/register"というURLに対するPOSTリクエストを処理します
-    public String register(@ModelAttribute UserDto userDto) {
+    public String register(@ModelAttribute UserDto userDto, Model model) {
         User existing = userService.findByUsername(userDto.getUsername()); // ユーザー名で既存のユーザーを検索します
         if(existing != null){
             // ユーザーが既に存在する場合の処理
+        	model.addAttribute("error", true);
             return "register"; // ユーザーが存在するため、再度登録画面を表示します
         }
         userService.save(userDto); // ユーザーが存在しない場合、新しいユーザーを保存します
+        model.addAttribute("registered", true);
         return "login"; // 登録が成功した場合、ログイン画面を表示します
     }
 }

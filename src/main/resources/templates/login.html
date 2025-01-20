@@ -11,6 +11,9 @@
 	    <div th:if="${param.error}">
 	        <p>ユーザー名かパスワードが間違っています</p>
 	    </div>
+	    <div th:if="${registered}">
+	        <p>ユーザー登録が完了しました、ログインしてください</p>
+	    </div>
 	    <div th:if="${param.logout}">
 	        <p>ログアウトしました。</p>
 	    </div>
