@@ -23,61 +23,44 @@
 </head>
 <body>
 
-<header>
-    <img src="logo.png" alt="ロゴ" class="logo">
-    <nav>
-        <a href="https://www.p-world.co.jp/machine/database/10121" th:href="@{/}">TOP</a>
-        <a href="https://www.p-world.co.jp/machine/database/10098" th:href="@{/mypage}">マイページ</a>
-    </nav>
-</header>
-
 <div class="container">
     <form id="main-form" th:action="@{/listDetailAdd}" method="post">		
         <div class="input-group">
-            <div class="edit">
-                <button type="button" id="edit-button" class="edit-button" onclick="enableEdit()">編集</button>
-            </div>
-            <label for="company-name">企業名</label>
+            <label for="company-name">企業名*</label>
             <input type="text" id="company-name" name="storeName" class="input-box" required th:value="${storeName}"> <!-- 修正 -->
         </div>
         
         <div class="input-group">
-            <label for="phone-number">電話番号</label>
+            <label for="phone-number">電話番号*</label>
             <input type="text" id="phone-number" name="phone" class="input-box" required th:value="${phone}"> <!-- 修正 -->
         </div>
         
         <div class="input-group">
-            <label for="remarks">備考</label>
-            <textarea id="remarks" name="remarks" class="input-box large-input" required th:text="${remarks}"></textarea> <!-- 修正 -->
+            <label for="address">件名*
+			</label>
+            <input type="text" id="subject" name="subject" class="input-box" required th:value="${address}"> <!-- 修正 -->
         </div>
         
         <div class="input-group">
             <label for="address">住所</label>
-            <input type="text" id="address" name="address" class="input-box" required th:value="${address}"> <!-- 修正 -->
-        </div>
-        
-                <div class="input-group">
-            <label for="address">業種</label>
-            <input type="text" id="industry" name="industry" class="input-box" required th:value="${address}"> <!-- 修正 -->
+            <input type="text" id="address" name="address" class="input-box" th:value="${address}"> <!-- 修正 -->
         </div>
         
         <div class="input-group">
-            <label for="address">件名</label>
-            <input type="text" id="subject" name="subject" class="input-box" required th:value="${address}"> <!-- 修正 -->
+            <label for="address">業種</label>
+            <input type="text" id="industry" name="industry" class="input-box" th:value="${address}"> <!-- 修正 -->
         </div>
-
-
+        
+        <div class="input-group">
+            <label for="remarks">備考</label>
+            <textarea id="remarks" name="remarks" class="input-box large-input" th:text="${remarks}"></textarea> <!-- 修正 -->
+        </div>
+        
         <div class="button-container">
             <button type="submit" class="button complete">追加</button>
             <button type="button" class="button back" onclick="window.history.back();">戻る</button>
         </div>
-        
     </form>
-    <form th:action="@{/nextAdd}" method="post">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-			<input type="hidden" th:name="listId" th:value="${listId}"></input>
-			<button type="submit" class="button next" onclick="loadNextItem()">次の企業を追加</button>
-	</form>
 
 </div>
 </body>

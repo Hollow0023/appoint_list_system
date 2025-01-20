@@ -11,6 +11,7 @@
             document.getElementById("phone-number").removeAttribute("readonly");
             document.getElementById("remarks").removeAttribute("readonly");
             document.getElementById("address").removeAttribute("readonly");
+            document.getElementById("status").removeAttribute("disabled");
 
             // 編集ボタンを完了ボタンに変更
             var editButton = document.getElementById("edit-button");
@@ -24,13 +25,17 @@
             document.getElementById("phone-number").setAttribute("readonly", true);
             document.getElementById("remarks").setAttribute("readonly", true);
             document.getElementById("address").setAttribute("readonly", true);
-
+			document.getElementById("status").setAttribute("disabled", true);
 
             // 編集ボタンを「編集」に戻す
             var editButton = document.getElementById("edit-button");
             editButton.innerText = "編集";
             editButton.setAttribute("onclick", "enableEdit()");
         }
+        
+        function save_button(){
+			document.getElementById("status").removeAttribute("disabled");
+		}
 
     </script>
 </head>
@@ -46,7 +51,7 @@
 
 <div class="container">
     <form id="main-form" th:action="@{/submit}" method="post">
-		<div>ID <input type="text" th:name="listId" th:value="${listId}"></div>
+		<div>ID <input type="text" th:name="listId" readonly th:value="${listId}"></div>
 		
         <div class="input-group">
             <div class="edit">
@@ -63,7 +68,7 @@
                 
         <div class="input-group">
             <label for="status">ステータス</label>
-            <select id="status" name="statusDetail" class="input-box" required>
+            <select id="status" name="statusDetail" class="input-box" required disabled>
 		        <option value="" disabled>ステータスを選択</option>
 		        <option th:each="status : ${status}" 
 		                th:value="${status.statusId}" 
@@ -74,7 +79,7 @@
         
         <div class="input-group">
             <label for="remarks">備考</label>
-            <textarea id="remarks" name="remarks" class="input-box large-input" required readonly th:text="${remarks}"></textarea> <!-- 修正 -->
+            <textarea id="remarks" name="remarks" class="input-box large-input" readonly th:text="${remarks}"></textarea> <!-- 修正 -->
         </div>
         
         <div class="input-group">
@@ -84,12 +89,12 @@
         
         <div class="input-group">
             <label for="address">業種</label>
-            <input type="text" id="industry" name="industry" class="input-box" required readonly th:value="${address}"> <!-- 修正 -->
+            <input type="text" id="industry" name="industry" class="input-box" readonly th:value="${address}"> <!-- 修正 -->
         </div>
         
         <div class="input-group">
             <label for="address">件名</label>
-            <input type="text" id="subject" name="subject" class="input-box" required readonly th:value="${address}"> <!-- 修正 -->
+            <input type="text" id="subject" name="subject" class="input-box" readonly th:value="${address}"> <!-- 修正 -->
         </div>
         
         <div class="input-group">
@@ -98,7 +103,7 @@
         </div>
 
         <div class="button-container">
-            <button type="submit" class="button complete">保存</button>
+            <button type="submit" class="button complete" onclick="save_button()">保存</button>
 <!--            リスト一覧ページに戻るボタン-->
             
         </div>
