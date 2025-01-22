@@ -12,6 +12,8 @@
             document.getElementById("remarks").removeAttribute("readonly");
             document.getElementById("address").removeAttribute("readonly");
             document.getElementById("status").removeAttribute("disabled");
+            document.getElementById("industry").removeAttribute("readonly");
+            document.getElementById("subject").removeAttribute("readonly");
 
             // 編集ボタンを完了ボタンに変更
             var editButton = document.getElementById("edit-button");
@@ -26,6 +28,8 @@
             document.getElementById("remarks").setAttribute("readonly", true);
             document.getElementById("address").setAttribute("readonly", true);
 			document.getElementById("status").setAttribute("disabled", true);
+			document.getElementById("industry").setAttribute("readonly", true);
+			document.getElementById("subject").setAttribute("readonly", true);
 
             // 編集ボタンを「編集」に戻す
             var editButton = document.getElementById("edit-button");
@@ -65,6 +69,11 @@
             <label for="phone-number">電話番号</label>
             <input type="text" id="phone-number" name="phone" class="input-box" required readonly th:value="${phone}"> 
         </div>
+        
+        <div class="input-group">
+            <label for="address">件名</label>
+            <input type="text" id="subject" name="subject" class="input-box" readonly th:value="${address}"> <!-- 修正 -->
+        </div>
                 
         <div class="input-group">
             <label for="status">ステータス</label>
@@ -90,11 +99,6 @@
         <div class="input-group">
             <label for="address">業種</label>
             <input type="text" id="industry" name="industry" class="input-box" readonly th:value="${address}"> <!-- 修正 -->
-        </div>
-        
-        <div class="input-group">
-            <label for="address">件名</label>
-            <input type="text" id="subject" name="subject" class="input-box" readonly th:value="${address}"> <!-- 修正 -->
         </div>
         
         <div class="input-group">
