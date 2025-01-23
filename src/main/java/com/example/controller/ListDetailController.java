@@ -78,8 +78,6 @@ public class ListDetailController {
         return "listDetail"; // listDetail.htmlに遷移
     }
     
-    
-    
     @PostMapping("/nextpage")//ページ表示
     public ModelAndView showNextDetail(   		
             @RequestParam("listId") int listId,
@@ -109,15 +107,15 @@ public class ListDetailController {
     @PostMapping("/submit")//保存
     public ModelAndView submitUpdate(
     		@RequestParam("listId") Integer listId,
-    		@RequestParam(value="userId", required=false, defaultValue="1") String userId,
-    		@RequestParam(value="storeName", required=false, defaultValue="test") String storeName,
-    		@RequestParam(value="phone", required=false, defaultValue="111") String phone,
-    		@RequestParam(value="address", required=false, defaultValue="test") String address,
-    		@RequestParam(value="subject", required=false, defaultValue="test") String subject,
-    		@RequestParam(value="industry", required=false, defaultValue="test") String industry,
-    		@RequestParam(value="remarks", required=false, defaultValue="test") String remarks,
-    		@RequestParam(value="statusDetail", required=false, defaultValue="test") Integer statusDetail,
-    		@RequestParam(value="postRemarks", required=false, defaultValue="test") String postRemarks) {
+    		@RequestParam(value="userId", required=false) String userId,
+    		@RequestParam(value="storeName", required=false) String storeName,
+    		@RequestParam(value="phone", required=false) String phone,
+    		@RequestParam(value="address", required=false) String address,
+    		@RequestParam(value="subject", required=false) String subject,
+    		@RequestParam(value="industry", required=false) String industry,
+    		@RequestParam(value="remarks", required=false) String remarks,
+    		@RequestParam(value="statusDetail", required=false) Integer statusDetail,
+    		@RequestParam(value="postRemarks", required=false) String postRemarks) {
 
         // listIdを元に該当のレコードを取得
         AppointList appointment = appointListRepository.findById(listId)
